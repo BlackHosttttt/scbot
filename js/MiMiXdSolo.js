@@ -567,8 +567,8 @@ case 'listgc': {
              break 		
  
 case 'pushkontak': {
-    if (!isOwner) return m.reply(`Khusus Owner`)
-      if (!isGroup) return m.reply(`Khusus Group!!..`)
+    if (isCreator) return m.reply(`Khusus Owner`)
+      if (isGroup) return m.reply(`Khusus Group!!..`)
     if (!q) return m.reply(`Teks nya mana kak?`)
     let MiMiXdSolo = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
     reply(`Wait... Proses di jeda 1detik per-orang`)
