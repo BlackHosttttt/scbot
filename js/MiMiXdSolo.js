@@ -508,8 +508,7 @@ keuntungan :
 Jika Minat Chat wa.me/6281231319622`)
 }
 break     
-
-//Case Hosting By MiMiXd Solo                                        
+                                      
 case 'csubdo':
  if(from != "120363042323874758@g.us") return m.reply("Fitur Hanya Untuk Grup Tertentu Mang")
         function subDomain1(host, ip) {
@@ -567,7 +566,21 @@ case 'listgc': {
              }
              break 		
  
-
+case 'pushkontak': {
+    if (!isOwner) return m.reply(`Khusus Owner`)
+      if (!isGroup) return m.reply(`Khusus Group!!..`)
+    if (!q) return m.reply(`Teks nya mana kak?`)
+    let MiMiXdSolo = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
+    reply(`Wait... Proses di jeda 1detik per-orang`)
+    for (let pler of rama) {
+    MiMiXdSolo.sendMessage(pler, { text: q})
+    await sleep(1000)
+     }  
+     m.reply(`Succes Push Kontak
+     
+     Creator MiMiXd Solo wa.me/6281231319622`)
+      }
+      break
  
 
  
