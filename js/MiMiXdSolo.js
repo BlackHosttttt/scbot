@@ -507,7 +507,65 @@ keuntungan :
 
 Jika Minat Chat wa.me/6281231319622`)
 }
-break         
+break     
+
+//Case Hosting By MiMiXd Solo                                        
+case 'csubdo':
+ if(from != "120363042323874758@g.us") return m.reply("Fitur Hanya Untuk Grup Tertentu Mang")
+        function subDomain1(host, ip) {
+          return new Promise((resolve) => {
+            let zone1 = "be9f18e21607d9889fe70c398e3a2598";
+            let apiToken1 = "JsNX3n-Mpnj1PG6wrNnqyljfF7TLSr78MbwTTri_";
+            let tld1 = "sczd.my.id";
+            axios.post(
+                `https://api.cloudflare.com/client/v4/zones/${zone1}/dns_records`,
+                { type: "A", name: host.replace(/[^a-z0-9.-]/gi, "") + "." + tld1, content: ip.replace(/[^0-9.]/gi, ""), ttl: 3600, priority: 10, proxied: false },
+                {
+                  headers: {
+                    Authorization: "Bearer " + apiToken1,
+                    "Content-Type": "application/json",
+                  },
+                }
+              )
+              .then((e) => {
+                let res = e.data;
+                if (res.success) resolve({ success: true, zone: res.result?.zone_name, name: res.result?.name, ip: res.result?.content });
+              })
+              .catch((e) => {
+                let err1 = e.response?.data?.errors?.[0]?.message || e.response?.data?.errors || e.response?.data || e.response || e;
+                let err1Str = String(err1);
+                resolve({ success: false, error: err1Str });
+              });
+          });
+        }
+
+        let raw1 = args?.join(" ")?.trim();
+        if (!raw1) return m.reply("mana host & ip nya?");
+        let host1 = raw1
+          .split("|")[0]
+          .trim()
+          .replace(/[^a-z0-9.-]/gi, "");
+        if (!host1) return m.reply("host tidak valid, pastikan host hanya mengandung huruf, angka, - (strip), dan . (titik)");
+        let ip1 = raw1.split("|")[1]?.replace(/[^0-9.]/gi, "");
+        if (!ip1 || ip1.split(".").length < 4) return m.reply(ip1 ? "ip tidak valid" : "mana ip nya");
+
+        subDomain1(host1, ip1).then((e) => {
+          if (e['success']) m.reply(`berhasil menambah subdomain\nip: ${e['ip']}\nhostname: ${e['name']}`);
+          else m.reply(`gagal membuat subdomain\nMsg: ${e['error']}`)
+        });
+        break		
+
+case 'listgc': {
+	         if (!isCreator) return m.reply(`Fitur Khusus MiMiXd Solo Bang`)
+                 let anu = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
+                 let teks = `⬣ LIST GROUP CHAT\n\nTotal Group : ${anu.length} Group\n\n`
+                 for (let i of anu) {
+                     let metadata = await MiMiXdSolo.groupMetadata(i)
+                     teks += `› Nama : ${metadata.subject}\n› ID : ${metadata.id}\n› Dibuat : ${moment(metadata.creation * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n› Member : ${metadata.participants.length}\n\n────────────────────────\n\n`
+                 }
+                 MiMiXdSolo.sendTextWithMentions(m.chat, teks, m)
+             }
+             break 		
  
 
  
